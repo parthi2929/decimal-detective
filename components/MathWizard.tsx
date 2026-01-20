@@ -12,6 +12,7 @@ interface MathWizardProps {
   tutorState: TutorState;
   setTutorState: React.Dispatch<React.SetStateAction<TutorState>>;
   onNextProblem: () => void;
+  onScoreIncrement: () => void;
 }
 
 const STEP_ORDER = {
@@ -23,7 +24,7 @@ const STEP_ORDER = {
   [WizardStep.SUCCESS]: 5,
 };
 
-export const MathWizard: React.FC<MathWizardProps> = ({ problem, tutorState, setTutorState, onNextProblem }) => {
+export const MathWizard: React.FC<MathWizardProps> = ({ problem, tutorState, setTutorState, onNextProblem, onScoreIncrement }) => {
   const [step, setStep] = useState<WizardStep>(WizardStep.INTRO);
   
   // Inputs
@@ -197,6 +198,7 @@ export const MathWizard: React.FC<MathWizardProps> = ({ problem, tutorState, set
   const checkFinalAnswer = async () => {
     if (decimalPosition === totalDecimals) {
       setStep(WizardStep.SUCCESS);
+      onScoreIncrement(); // Increment score for correct final answer
       confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 } });
       setTutorState(prev => ({ ...prev, isLoading: true }));
       const msg = await getCelebrationMessage();

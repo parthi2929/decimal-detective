@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Production context: master branch
+[context.production]
+  command = "npm run build"
+  publish = "dist"
+
+# Deploy Preview context: dev branch and pull requests
+[context.dev]
+  command = "npm run build"
+  publish = "dist"
+
+[context.deploy-preview]
+  command = "npm run build"
+  publish = "dist"
+
+# Branch deploy context
+[context.branch-deploy]
+  command = "npm run build"
+  publish = "dist"
